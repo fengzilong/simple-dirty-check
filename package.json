@@ -2,7 +2,7 @@
   "name": "simple-dirty-check",
   "version": "0.0.0",
   "description": "simple dirty check",
-  "main": "index.js",
+  "main": "dist/simple-dirty-check.js",
   "dependencies": {
     "clone": "^1.0.2",
     "deep-equal": "^1.0.1",
