@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+	<title>demo</title>
+</head>
+<body>
+	<script type="text/javascript" src="./dist/simple-dirty-check.js"></script>
+	<script type="text/javascript">
+		var vm = SDC.create({
+			a: 1,
+			b: {
+				c: {
+					d: 5
+				}
+			},
+			firstName: 'Wang',
+			deep: {
+				lastName: 'Lao'
+			}
+		});
+
+		vm.compute('fullName', [ 'firstName', 'deep.lastName' ], function() {
+			return vm.data.firstName + ' ' + vm.data.deep.lastName;
+		});
+
+		vm.watch('b.c', function( newValue, oldValue ) {
+			console.log( 'b.c changed from', oldValue, 'to', newValue );
+		}, true);
+
+		vm.watch('b', function( newValue, oldValue ) {
+			console.log( 'b changed from', oldValue, 'to', newValue );
+		}, true);
+
+		vm.watch('b.c.d', function( newValue, oldValue ) {
+			console.log( 'b.c.d changed from', oldValue, 'to', newValue );
+			vm.data.firstName = 'Li';
+		}, true);
+
+		vm.watch('fullName', function( newValue, oldValue ) {
+			console.log( 'fullName changed from', oldValue, 'to', newValue );
+			vm.data.b.c.d = 111;
+		});
+
+		vm.data.b = {
+			c: {
+				d: 7
+			}
+		};
+
+		vm.data.firstName = 'Zhang';
+
+		vm.digest();
+	</script>
+</body>
+</html>
